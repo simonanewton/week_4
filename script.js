@@ -1,30 +1,67 @@
-var title = document.querySelector("#title");
-var button = document.querySelector(".button");
+// initializes button variables
+var btnStart = document.querySelector(".btnStart");
+var btnNext = document.querySelector(".btnNext");
+var btnSubmit = document.querySelector(".btnSubmit");
+var btnStartOver = document.querySelector(".btnRestart");
+var btnClearScores = document.querySelector(".btnClearScores");
 
-title.addEventListener("click", function (event) {
-    var element = title;
-    var currentColor = element.getAttribute("textColor");
+// initializes the quiz timer
+var timer = document.querySelector(".timer");
 
-    if (currentColor === "black") {
-        element.setAttribute("textColor", "red");
-        element.style.color = "red";
-    }
-    else if (currentColor === "red") {
-        element.setAttribute("textColor", "black");
-        element.style.color = "black";
-    }
+// elements on the starting page
+var startText = document.querySelector(".startText");
+
+// starts the quiz timer
+function startTimer() {
+    var startTime = 60;
+    setInterval(function () {
+        if (startTime > 0) startTime--;
+        timer.textContent = "Timer: " + startTime + "s";
+    }, 1000);
+}
+
+// adds start button functionality
+btnStart.addEventListener("click", function (event) {
+    // hide start button and start text
+    btnStart.style.display = "none";
+    startText.style.display = "none";
+
+    // start timer
+    startTimer();
+
+    // show progress bar
+
+    // show first question
 });
 
-button.addEventListener("click", function (event) {
-    var element = title;
-    var currentColor = element.getAttribute("textColor");
+// adds next button functionality
+btnNext.addEventListener("click", function (event) {
+    // hide current question
 
-    if (currentColor === "black") {
-        element.setAttribute("textColor", "red");
-        element.style.color = "red";
-    }
-    else if (currentColor === "red") {
-        element.setAttribute("textColor", "black");
-        element.style.color = "black";
-    }
+    // update progress bar
+
+    // if not last question, show next question
+
+    // else if last question, show end page
+});
+
+// adds submit button functionality
+btnSubmit.addEventListener("click", function (event) {
+    // create variable for initals
+
+    // save initials and score to localStorage
+
+    // show highscores page
+});
+
+// adds start over button functionality
+btnStartOver.addEventListener("click", function (event) {
+    // hide highscores page
+
+    // show start page
+});
+
+// adds clear scores button functionality
+btnClearScores.addEventListener("click", function (event) {
+    // clear all scores from highscores list
 });
