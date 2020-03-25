@@ -5,32 +5,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homework Week 4</title>
+
+    <!-- Bootstrap and JavaScript Links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Website Title -->
+    <!-- Website Header -->
     <header>
         <h1 class="my-3 text-light text-center">Coding Quiz Challenge</h1>
         <hr class="bg-light">
     </header>
 
     <!-- Quiz Containter -->
-    <div class="container bg-light p-4 my-4">
-        <u class="p-3 m-0 float-left">View Highscores</u>
-        <p class="p-3 m-0 float-right timer">Timer: 60s</p>
-        <div class="jumbotron m-0 text-center align-items-center">
-            <h3 class="px-5 m-5 startText">
-                Try to answer the following code-related questions within the time limit. Keep in mind that incorrect
-                answers will penalize your score/time by ten seconds!
-            </h3>
-            <button type="button" class="btn btn-primary btn-lg btnStart">Start Quiz</button>
+    <div class="container bg-light p-4 my-4 rounded">
+        <u class="p-3 float-left">View Highscores</u>
+        <p class="p-3 float-right timer">Timer: 60s</p>
+        <div class="jumbotron m-0 text-center">
+
+            <!-- start page div -->
+            <div class="startPage" style="display: block;">
+                <h3 class="px-5 m-5">
+                    Try to answer the following code-related questions within the time limit. Keep in mind that
+                    incorrect answers will penalize your score/time by ten seconds. Post your initals at the end to view
+                    the highscores!
+                </h3>
+                <button type="button" class="btn btn-primary btn-lg btnStart">Start Quiz</button>
+            </div>
+
+            <!-- question one div -->
+            <div class="btn-group-vertical bt-group-lg questionOne" style="display: none;">
+                <h3>Question One:</h3>
+                <h4>What is the answer to this question?</h4>
+                <br>
+
+                <button type="button" class="btn btn-outline-primary w-50 my-2">Answer 1</button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2">Answer 2</button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2">Answer 3</button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2">Answer 4</button>
+
+                <br><br>
+                <button type="button" class="btn btn-primary w-25 rounded btnNext">Next Question</button>
+            </div>
+
+            <!-- progress bar div -->
+            <div class="progress fixed-bottom">
+                <div class="progress-bar" role="progressbar" style="width: 0%" aria-valuenow="0" aria-valuemin="0"
+                    aria-valuemax="100"></div>
+            </div>
+
+            <!-- ---------------------------------------------------------------------------------------------- -->
+
+
+            <!-- question one div -->
+            <!-- <div class="btn-group-vertical bt-group-lg">
+                <h3 id="title"></h3>
+                <h4 id="question"></h4>
+                <br>
+
+                <button type="button" class="btn btn-outline-primary w-50 my-2" id="answer1"></button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2" id="answer2"></button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2" id="answer3"></button>
+                <button type="button" class="btn btn-outline-primary w-50 my-2" id="answer4"></button>
+
+                <br><br>
+                <button type="button" class="btn btn-primary w-25 rounded" id="btnNext">Next Question</button>
+            </div> -->
+
         </div>
     </div>
 
-    <!-- JavaScript Links -->
+    <!-- Bootstrap JavaScript Links -->
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
@@ -40,7 +87,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+
+    <!-- My JavaScript Links -->
+    <script src="./script.js"></script>
+    <script src="./questions.js"></script>
 </body>
 
 </html>
