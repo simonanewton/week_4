@@ -24,6 +24,10 @@ As you proceed in your career as a web developer, you will probably be asked to 
 
 * https://davidwalsh.name/event-delegate
 
+* https://www.sitepoint.com/sort-an-array-of-objects-in-javascript/
+
+* https://www.sitepoint.com/es6-arrow-functions-new-fat-concise-syntax-javascript/
+
 ## License
 
 MIT License

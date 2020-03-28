@@ -6,7 +6,7 @@ body {
     min-height: 550px;
 }
 
-.highscoresDiv ol {
-    display: inline-block;
-    text-align: center;
+u:hover {
+    cursor: pointer;
+    color: blue;
 }
