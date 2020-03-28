@@ -3,7 +3,7 @@
 // initialize section div variables
 var headingDiv = document.querySelector(".headingDiv");
 var startPageDiv = document.querySelector(".startPageDiv");
-var buttonDiv = document.querySelector(".buttonDiv");
+var questionDiv = document.querySelector(".questionDiv");
 var endPageDiv = document.querySelector(".endPageDiv");
 var highscoresDiv = document.querySelector(".highscoresDiv");
 
