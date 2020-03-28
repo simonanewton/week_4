@@ -20,7 +20,9 @@ As you proceed in your career as a web developer, you will probably be asked to 
 
 ## Credits
 
-* ???
+* https://www.w3schools.com/jsref/met_win_setinterval.asp
+
+* https://davidwalsh.name/event-delegate
 
 ## License
 

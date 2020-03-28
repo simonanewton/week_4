@@ -1,45 +1,62 @@
 //--------------------------------------------------------------------------------------------------------------------
 
-// initialize button variables
-var btnStartQuiz = document.querySelector(".btnStartQuiz");
-var btnNextQuestion = document.querySelector(".btnNext");
-var btnFinishQuiz = document.querySelector(".btnFinishQuiz");
-
-// variable for section divs
+// initialize section div variables
+var headingDiv = document.querySelector(".headingDiv");
 var startPageDiv = document.querySelector(".startPageDiv");
 var questionDiv = document.querySelector(".questionDiv");
 var choicesDiv = document.querySelector(".choicesDiv");
 var buttonDiv = document.querySelector(".buttonDiv");
 var endPageDiv = document.querySelector(".endPageDiv");
+var highscoresDiv = document.querySelector(".highscoresDiv");
+
+// initialize button variables
+var btnStartQuiz = document.querySelector(".btnStartQuiz");
+var btnNextQuestion = document.querySelector(".btnNext");
+var btnFinishQuiz = document.querySelector(".btnFinishQuiz");
+var btnSubmit = document.querySelector(".btnSubmit");
+var btnRestart = document.querySelector(".btnRestart");
+var btnClear = document.querySelector(".btnClear");
+
+// initialize end page elements
+var initialsForm = document.querySelector("#initialsForm");
+var initialsInput = document.querySelector("#initialsInput");
+
+// initializes highscores page elements
+var highscoresList = document.querySelector("#highscoresList");
 
 // initializes the quiz timer
 var timer = document.querySelector("#timer");
+var startTime = 60;
+var timerValue;
 
 // initializes the progress bar variables
 var progressBar = document.querySelector(".progress-bar");
 var currentProgress = 0;
 
 // initializes user score elements
-var score = 0;
 var userScore = document.querySelector("#userScore");
+var score = 0;
 
-// initialize question array index
+// initialize questions array index
 var currentQuestionIndex = 0;
-// var lastQuestionIndex = questions.length;
 
 //--------------------------------------------------------------------------------------------------------------------
 
 function startTimer() {
-    var startTime = 60;
-    setInterval(function () {
-        if (startTime > 0) startTime--;
-        timer.textContent = "Timer: " + startTime + "s";
-    }, 1000);
+    // ???
 }
 
-function toggleShowElement(div) {
-    if (div.getAttribute("style") === "display: none;") div.removeAttribute("style");
-    else div.setAttribute("style", "display: none;");
+function stopTimer() {
+    // ???
+}
+
+function subtractTimer() {
+    // ???
+}
+
+function toggleShowElement(element) {
+    if (element.getAttribute("style") === "display: none;") element.removeAttribute("style");
+    else element.setAttribute("style", "display: none;");
 }
 
 function updateProgress() {
@@ -103,21 +120,69 @@ function loadQuestion() {
     }
 }
 
+// function submitInitials(event) {
+//     // prevent page refresh
+//     event.preventDefault();
+//     // get userInitials from form input
+//     var userInitials = initialsInput.value.trim();
+//     // add initials and score to highscoresList
+//     var highscoresLi = document.createElement("li");
+//     highscoresLi.textContent = `${userInitials}-${score}`;
+//     highscoresList.appendChild(highscoresLi);
+//     // hide end page
+//     toggleShowElement(endPageDiv);
+//     // hide heading div
+//     toggleShowElement(headingDiv);
+//     // show highscores page
+//     toggleShowElement(highscoresDiv);
+// }
+
+// initialsForm.addEventListener("submit", submitInitials(event));
+
+// btnSubmit.addEventListener("click", submitInitials(event));
+
 //--------------------------------------------------------------------------------------------------------------------
+
+btnSubmit.addEventListener("click", function (event) {
+    // prevent page refresh
+    event.preventDefault();
+
+    // get userInitials from form input
+    var userInitials = initialsInput.value.trim();
+
+    // assures that the input is not blank
+    if (userInitials === "") {
+        alert("Initials cannot be blank");
+        return;
+    }
+
+    // add initials and score to highscoresList
+    var highscoresLi = document.createElement("li");
+    highscoresLi.textContent = `${userInitials}-${score}`;
+    highscoresList.appendChild(highscoresLi);
+
+    // hide end page
+    toggleShowElement(endPageDiv);
+
+    // hide heading div
+    toggleShowElement(headingDiv);
+
+    // show highscores page
+    toggleShowElement(highscoresDiv);
+});
 
 questionDiv.addEventListener("click", function () {
 
     if (event.target && event.target.matches("button.btnNext")) {
         // calculate score
         // ???
-        
+
         // clear current question content
         choicesDiv.innerHTML = "";
         buttonDiv.innerHTML = "";
 
         // update currentQuestionIndex
         currentQuestionIndex++;
-        // console.log(lastQuestionIndex);
 
         // load the next question
         loadQuestion();
@@ -174,13 +239,24 @@ btnStartQuiz.addEventListener("click", function () {
 // upon finishQuiz button clicked, stop timer, add timer to score
 
 // show endPage, show score, show input for initials
-// upon submit button clicked, store initals and score in localStorage
+// upon submit button clicked, append the initals and score to the highscores list and store them in localStorage
 // hide endPage
 
 // show highscoresPage
 // show all highscores with initials
-// upon clearHighscores button clicked, clear all highscores from localStorage
+// upon clearHighscores button clicked, clear all highscores from the page and from localStorage
 
 // upon restartQuiz button clicked, reset score, reset timer, reset currentQuestionIndex, reset progressBar
 // hide highscoresPage
 // show startPage
+
+
+// TO DO:
+// - add startTimer and stopTimer functionality
+// - add subtractTimer functionality
+// - center ordered list on highscores page
+// - add choice button click functionality
+// - add score calculation functionality
+// - add btnRestart functionality
+// - add btnClear functionality
+// - add View Highscores link functionality

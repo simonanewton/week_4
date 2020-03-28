@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homework Week 4</title>
+    <title>Coding Quiz Challenge</title>
 
-    <!-- Bootstrap and JavaScript Links -->
+    <!-- Bootstrap and CSS Links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
@@ -22,9 +22,12 @@
     <!-- Quiz Containter -->
     <div class="container bg-light p-4 my-4 rounded">
 
-        <!-- highscores link and timer elements-->
-        <u class="p-3 float-left" id="highscores">View Highscores</u>
-        <p class="p-3 float-right" id="timer">Timer: 60s</p>
+        <!-- heading elements div-->
+        <div class="headingDiv">
+            <p class="p-3 float-left m-0" id="score" style="display: none;">Score: 0</p>
+            <u class="p-3 float-left m-0" id="highscores">View Highscores</u>
+            <p class="p-3 float-right m-0" id="timer">Timer: 60s</p>
+        </div>
 
         <div class="jumbotron m-0 text-center">
 
@@ -50,12 +53,21 @@
 
             <!-- end page div -->
             <div class="endPageDiv" style="display: none;">
-                <h3 class="mt-0">All Done!</h3><br>
+                <h3>All Done!</h3><br>
                 <p id="userScore"></p><br>
-                <form action="">
+                <form id="initialsForm">
                     <label for="initials">Enter Initials:</label>
-                    <input type="text" id="initials">
+                    <input type="text" name="initialsInput" id="initialsInput">
+                    <button type="submit" class="btn btn-primary w-20 btnSubmit">Submit</button>
                 </form>
+            </div>
+
+            <!-- highscores div -->
+            <div class="highscoresDiv" style="display: none;">
+                <h3>Highscores:</h3><br>
+                <ol class="bg-primary text-white w-50" id="highscoresList"></ol><br>
+                <button type="button" class="btn btn-primary w-20 btnRestart">Restart Quiz</button>
+                <button type="button" class="btn btn-primary w-20 btnClear">Clear Highscores</button>
             </div>
 
             <!-- progress bar div -->
