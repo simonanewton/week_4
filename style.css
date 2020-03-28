@@ -5,3 +5,8 @@ body {
 .jumbotron {
     min-height: 550px;
 }
+
+.highscoresDiv ol {
+    display: inline-block;
+    text-align: center;
+}

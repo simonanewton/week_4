@@ -3,8 +3,6 @@
 // initialize section div variables
 var headingDiv = document.querySelector(".headingDiv");
 var startPageDiv = document.querySelector(".startPageDiv");
-var questionDiv = document.querySelector(".questionDiv");
-var choicesDiv = document.querySelector(".choicesDiv");
 var buttonDiv = document.querySelector(".buttonDiv");
 var endPageDiv = document.querySelector(".endPageDiv");
 var highscoresDiv = document.querySelector(".highscoresDiv");
@@ -16,6 +14,12 @@ var btnFinishQuiz = document.querySelector(".btnFinishQuiz");
 var btnSubmit = document.querySelector(".btnSubmit");
 var btnRestart = document.querySelector(".btnRestart");
 var btnClear = document.querySelector(".btnClear");
+
+// initialize question page elements
+var questionTitle = document.querySelector("#questionTitle");
+var questionPrompt = document.querySelector("#questionPrompt");
+var choicesDiv = document.querySelector("#choicesDiv");
+var buttonDiv = document.querySelector("#buttonDiv");
 
 // initialize end page elements
 var initialsForm = document.querySelector("#initialsForm");
@@ -77,12 +81,10 @@ function loadQuestion() {
     var currentQuestion = questions[currentQuestionIndex];
 
     // takes the title value from the current question object and sets the question title to its value
-    var questionTitle = document.getElementById("questionTitle");
     questionTitle.textContent = currentQuestion.title;
 
     // takes the question value from the current question object and sets the question text to its value
-    var questionText = document.getElementById("questionPrompt");
-    questionText.textContent = currentQuestion.question;
+    questionPrompt.textContent = currentQuestion.question;
 
     // iterate through question choices and display them
     currentQuestion.choices.forEach(choice => {
@@ -105,7 +107,7 @@ function loadQuestion() {
     if (currentQuestionIndex < (questions.length - 1)) {
         // create next button
         var nextButtonEl = document.createElement("button");
-        nextButtonEl.setAttribute("class", "btn btn-primary w-25 rounded btnNext");
+        nextButtonEl.setAttribute("class", "btn btn-primary w-25 btnNext");
         nextButtonEl.setAttribute("type", "button");
         nextButtonEl.textContent = "Next Question";
         buttonDiv.appendChild(nextButtonEl);
@@ -113,11 +115,18 @@ function loadQuestion() {
     else {
         // create finish quiz button
         var finishQuizButtonEl = document.createElement("button");
-        finishQuizButtonEl.setAttribute("class", "btn btn-primary w-25 rounded btnFinishQuiz");
+        finishQuizButtonEl.setAttribute("class", "btn btn-primary w-25 btnFinishQuiz");
         finishQuizButtonEl.setAttribute("type", "button");
         finishQuizButtonEl.textContent = "Finish Quiz";
         buttonDiv.appendChild(finishQuizButtonEl);
     }
+}
+
+function clearQuestionDiv() {
+    questionTitle.innerHTML = "";
+    questionPrompt.innerHTML = "";
+    choicesDiv.innerHTML = "";
+    buttonDiv.innerHTML = "";
 }
 
 // function submitInitials(event) {
@@ -143,6 +152,38 @@ function loadQuestion() {
 
 //--------------------------------------------------------------------------------------------------------------------
 
+btnClear.addEventListener("click", function () {
+    // clear highscores from highscores page
+    highscoresList.innerHTML = "";
+
+    // clear highscores from the localStorage
+    // ???
+});
+
+btnRestart.addEventListener("click", function () {
+    // reset user score
+    score = 0;
+
+    // reset timer
+    startTime = 60;
+    timer.textContent = `Timer: ${startTime}s`;
+
+    // reset currentQuestionIndex
+    currentQuestionIndex = 0;
+
+    // reset progress bar
+    resetProgress();
+
+    // hide highscores page
+    toggleShowElement(highscoresDiv);
+
+    // show heading div
+    toggleShowElement(headingDiv);
+
+    // show start page
+    toggleShowElement(startPageDiv);
+});
+
 btnSubmit.addEventListener("click", function (event) {
     // prevent page refresh
     event.preventDefault();
@@ -158,8 +199,11 @@ btnSubmit.addEventListener("click", function (event) {
 
     // add initials and score to highscoresList
     var highscoresLi = document.createElement("li");
-    highscoresLi.textContent = `${userInitials}-${score}`;
+    highscoresLi.textContent = `${userInitials} - ${score}`;
     highscoresList.appendChild(highscoresLi);
+
+    // clear the userInitals input
+    initialsInput.value = "";
 
     // hide end page
     toggleShowElement(endPageDiv);
@@ -177,9 +221,8 @@ questionDiv.addEventListener("click", function () {
         // calculate score
         // ???
 
-        // clear current question content
-        choicesDiv.innerHTML = "";
-        buttonDiv.innerHTML = "";
+        // clear question div elements
+        clearQuestionDiv();
 
         // update currentQuestionIndex
         currentQuestionIndex++;
@@ -194,6 +237,9 @@ questionDiv.addEventListener("click", function () {
     if (event.target && event.target.matches("button.btnFinishQuiz")) {
         // calculate score
         userScore.textContent = `Your score is: ${score}`;
+
+        // clear question div elements
+        clearQuestionDiv();
 
         // hide the question div
         toggleShowElement(questionDiv);
