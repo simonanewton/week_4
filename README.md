@@ -2,7 +2,7 @@
 
 ## Description 
 
-As you proceed in your career as a web developer, you will probably be asked to complete a coding assessment, which is typically a combination of multiple-choice questions and interactive challenges. Build a timed code quiz with multiple-choice questions. This app will run in the browser and feature dynamically updated HTML and CSS powered by your JavaScript code. It will also feature a clean and polished user interface and be responsive, ensuring that it adapts to multiple screen sizes.
+This project creates a timed quiz that utilizes Bootstrap styling and JavaScript functionality. The user is presented with several choices for each question, and if the correct answer is chosen, the score will update. If the user selects no answer or an incorrect answer, their time will be penalized by ten seconds. Upon completion of the quiz, the user is prompted to input their initials, which are then added to the highscores page. The user can view all recent highscores or choose to clear them. The quiz can be completed any number of times, but only the top five scores are saved.
 
 ## Goals
 

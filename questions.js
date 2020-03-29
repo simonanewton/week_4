@@ -1,26 +1,32 @@
 const questions = [
     {
         title: "Question One:",
-        question: "What is the answer to question 1?",
-        choices: ["Answer 1", "Answer 2", "Answer3", "Answer 4"],
-        answer: "Answer 1",
+        question: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts",
     },
     {
         title: "Question Two:",
-        question: "What is the answer to question 2?",
-        choices: ["Answer 1", "Answer 2", "Answer3", "Answer 4"],
-        answer: "Answer 2",
+        question: "The condition in an if/else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "curly brackets",
     },
     {
         title: "Question Three:",
-        question: "What is the answer to question 3?",
-        choices: ["Answer 1", "Answer 2", "Answer3", "Answer 4"],
-        answer: "Answer 3",
+        question: "Arrays in JavaScript can be used to store _____.",
+        choices: ["numbers and strings", "other arrays", "booleans", "all of the above"],
+        answer: "all of the above",
     },
     {
         title: "Question Four:",
-        question: "What is the answer to question 4?",
-        choices: ["Answer 1", "Answer 2", "Answer3", "Answer 4"],
-        answer: "Answer 4",
+        question: "String values must be enclosed within _____ when being assigned to variables.",
+        choices: ["commas", "curly brackets", "quotes", "parathenses"],
+        answer: "quotes",
+    },
+    {
+        title: "Question Five:",
+        question: "A very useful tool used during development and debugging for printing content to the debugger is:",
+        choices: ["JavaScript", "terminal/bash", "for loops", "console.log"],
+        answer: "console.log",
     }
 ];

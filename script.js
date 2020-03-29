@@ -23,6 +23,7 @@ var questionTitle = document.querySelector("#questionTitle");
 var questionPrompt = document.querySelector("#questionPrompt");
 var choicesDiv = document.querySelector("#choicesDiv");
 var buttonDiv = document.querySelector("#buttonDiv");
+var choiceButtons;
 
 // initialize end page elements
 var initialsForm = document.querySelector("#initialsForm");
@@ -46,6 +47,8 @@ var score = 0;
 
 // initialize questions array index
 var currentQuestionIndex = 0;
+// var currentQuestion = questions[currentQuestionIndex];
+var currentQuestion;
 
 //--------------------------------------------------------------------------------------------------------------------
 
@@ -80,7 +83,7 @@ function toggleShowElement(element) {
 function updateProgress() {
     // set interval proportionate to the number of questions
     var interval = 100 / questions.length;
-    
+
     // if the progress bar isn't full yet, increase it by the interval amount
     if (currentProgress < 100) currentProgress += interval;
 
@@ -96,9 +99,55 @@ function resetProgress() {
     progressBar.setAttribute("aria-valuenow", currentProgress);
 }
 
+function getSelectedAnswer() {
+    // for each choice button, determine if selected, if so, return the text content of that button
+    for (let i = 0; i < choiceButtons.length; i++) {
+        if (choiceButtons[i].getAttribute("selected") === "true") {
+            return choiceButtons[i].textContent;
+        }
+    }
+}
+
+function evaluateAnswer() {
+    // return whether the user selection matches the question's answer
+    return (getSelectedAnswer() === currentQuestion.answer);
+}
+
+function updateScore() {
+    // increment score by 10, update the score tracker
+    score += 10;
+    scoreTracker.textContent = `Score: ${score}`;
+}
+
+function deselectAll() {
+    // for each of the choice buttons, deselect
+    choiceButtons.forEach(button => {
+        button.setAttribute("selected", "false");
+        button.setAttribute("class", "btn btn-outline-primary rounded my-2 btnChoice");
+    });
+}
+
+function toggleSelected(button) {
+    // determine whether button has already been selected
+    var isSelected = button.getAttribute("selected");
+
+    // if so, unselect it
+    if (isSelected === "true") {
+        button.setAttribute("selected", "false");
+        button.setAttribute("class", "btn btn-outline-primary rounded my-2 btnChoice");
+    }
+
+    // else, deselect all button and select the current one
+    else if (isSelected === "false") {
+        deselectAll();
+        button.setAttribute("selected", "true");
+        button.setAttribute("class", "btn btn-primary rounded my-2 btnChoice");
+    }
+}
+
 function loadQuestion() {
     // gets the current question object from the questions array
-    var currentQuestion = questions[currentQuestionIndex];
+    currentQuestion = questions[currentQuestionIndex];
 
     // set the title and prompt equal to the current questions values
     questionTitle.textContent = currentQuestion.title;
@@ -107,12 +156,12 @@ function loadQuestion() {
     currentQuestion.choices.forEach(choice => {
         // create and set attributes for each choice button
         var choiceEl = document.createElement("button");
-        choiceEl.setAttribute("class", "btn btn-outline-primary rounded my-2");
+        choiceEl.setAttribute("class", "btn btn-outline-primary rounded my-2 btnChoice");
         choiceEl.setAttribute("type", "button");
-        // choiceEl.setAttribute("choice", choice);
+        choiceEl.setAttribute("selected", "false");
 
         // add click functionality to the choice button
-        // ???
+        // choiceEl.onclick = toggleSelected();
 
         // set the choice button text content
         choiceEl.textContent = choice;
@@ -120,6 +169,9 @@ function loadQuestion() {
         // display the choice element
         choicesDiv.appendChild(choiceEl);
     });
+
+    // creates an array of the created buttons
+    choiceButtons = document.querySelectorAll(".btnChoice");
 
     if (currentQuestionIndex < (questions.length - 1)) {
         // create next question button and add it to the page
@@ -151,8 +203,8 @@ function sortHighscores() {
     // sorts the score values of the currentHighscores array from highest to lowest
     currentHighscores.sort((a, b) => {
         var comparison = 0;
-        if (a.score > b.score)comparison = -1 ;
-        if (a.score < b.score)comparison = 1 ;
+        if (a.score > b.score) comparison = -1;
+        if (a.score < b.score) comparison = 1;
         return comparison;
     });
 
@@ -162,13 +214,13 @@ function sortHighscores() {
 }
 
 function loadStoredUsers() {
-    // if the localStorage is not empty, concatenate the current array with the array from localStorage
+    // create variable for the stored highscores
     var storedHighscores = JSON.parse(localStorage.getItem("highscores"));
-    if (storedHighscores != null) {
-        currentHighscores = currentHighscores.concat(storedHighscores);
-    }
 
-    // add the new array of highscores to the localStorage
+    // if the stored highscores array is not empty, concatenate the current highscores array with it
+    if (storedHighscores != null) currentHighscores = currentHighscores.concat(storedHighscores);
+
+    // add the array of all highscores to the localStorage
     localStorage.setItem("highscores", JSON.stringify(currentHighscores));
 
     // sort the array of highscores
@@ -223,6 +275,7 @@ btnRestart.addEventListener("click", function () {
 
     // reset user score
     score = 0;
+    scoreTracker.textContent = `Score: ${score}`;
 
     // reset currentQuestionIndex
     currentQuestionIndex = 0;
@@ -278,8 +331,10 @@ questionDiv.addEventListener("click", function () {
 
     // checks if the next question button exists yet
     if (event.target && event.target.matches("button.btnNext")) {
-        // calculate score
-        // ???
+        // evaluate score then update score or timer
+        var isCorrect = evaluateAnswer();
+        if (isCorrect) updateScore();
+        else subtractTimer();
 
         // clear question div elements
         clearQuestionDiv();
@@ -299,7 +354,12 @@ questionDiv.addEventListener("click", function () {
         // stop the timer
         stopTimer();
 
-        // calculate score
+        // evaluate score then update score or timer
+        var isCorrect = evaluateAnswer();
+        if (isCorrect) updateScore();
+        else subtractTimer();
+
+        // update userScore with the calculated score
         userScore.textContent = `Your score is: ${score}`;
 
         // clear question div elements
@@ -312,6 +372,16 @@ questionDiv.addEventListener("click", function () {
         toggleShowElement(endPageDiv);
     }
 });
+
+choicesDiv.addEventListener("click", function (event) {
+    if (event.target && event.target.matches("button")) {
+        // initialize which button has been clicked
+        var buttonClicked = event.target;
+
+        // toggle the selected button
+        toggleSelected(buttonClicked);
+    }
+})
 
 viewHighscores.addEventListener("click", function () {
     // hide heading elements
@@ -349,43 +419,3 @@ btnStartQuiz.addEventListener("click", function () {
     // update the progress bar
     updateProgress();
 });
-
-//--------------------------------------------------------------------------------------------------------------------
-
-// upon startQuiz button clicked, start timer
-// hide startPage
-
-// update progressBar
-// show questionPage
-// if not the last question, show nextButton
-// upon nextButton clicked, get user choice, compare choice to answer value, modify score, modify timer
-// hide current question
-// show next question
-
-// repeat until last question
-
-// on last question, show finshQuiz button
-// upon finishQuiz button clicked, stop timer, add timer to score
-
-// show endPage, show score, show input for initials
-// upon submit button clicked, append the initals and score to the highscores list and store them in localStorage
-// hide endPage
-
-// show highscoresPage
-// show all highscores with initials
-// upon clearHighscores button clicked, clear all highscores from the page and from localStorage
-
-// upon restartQuiz button clicked, reset score, reset timer, reset currentQuestionIndex, reset progressBar
-// hide highscoresPage
-// show startPage
-
-
-// TO DO:
-// - add startTimer and stopTimer functionality (Done)
-// - add subtractTimer functionality (Done)
-// - center ordered list on highscores page (Done)
-// - add choice button click functionality (Not Done) --- 
-// - add score calculation functionality (Not Done) ---
-// - add btnRestart functionality (Done)
-// - add btnClear functionality (Done)
-// - add View Highscores link functionality (Done)
